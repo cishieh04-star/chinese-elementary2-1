@@ -182,13 +182,15 @@ body.paused *{animation-play-state:paused!important}
 #optbox,#optbox2{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;max-width:46rem}
 .zt{padding:.4rem 1rem;font-size:1.15rem}
 .zt.okc{background:#d8f7d9;border-color:var(--green)}
+.sen.para{font-size:min(1.5rem,5.2vw);font-weight:700;line-height:1.6;background:#fff;border:.16rem solid #d9b98f;border-radius:1rem;padding:.6rem 1rem;max-width:42rem;text-align:center}
+.qtxt{font-size:min(1.3rem,4.6vw);font-weight:800;color:#a85b00;text-align:center;max-width:42rem}
 </style></head><body>
 <div id="top"><button class="tb" id="homeBtn" style="display:none" >回首頁</button><h1 id="ttl"></h1><span class="chip" id="pts">點數 0</span><button class="tb" id="zyBtn">關閉注音</button><button class="tb" id="voiceBtn">關閉聲音</button></div>
 <div id="main"></div>
 <div id="foot"></div>
 <div id="toast"></div>
 <script>
-const ZYC={"聽": "ㄊㄧㄥ", "著": "ㄓㄜ˙", "我": "ㄨㄛˇ", "多": "ㄉㄨㄛ", "戰": "ㄓㄢˋ", "回": "ㄏㄨㄟˊ", "手": "ㄕㄡˇ", "還": "ㄏㄞˊ", "閉": "ㄅㄧˋ", "已": "ㄧˇ", "玩": "ㄨㄢˊ", "清": "ㄑㄧㄥ", "對": "ㄉㄨㄟˋ", "頁": "ㄧㄝˋ", "馬": "ㄇㄚˇ", "讓": "ㄖㄤˋ", "許": "ㄒㄩˇ", "填": "ㄊㄧㄢˊ", "靜": "ㄐㄧㄥˋ", "前": "ㄑㄧㄢˊ", "語": "ㄩˇ", "歡": "ㄏㄨㄢ", "最": "ㄗㄨㄟˋ", "動": "ㄉㄨㄥˋ", "的": "ㄉㄜ˙", "部": "ㄅㄨˋ", "三": "ㄙㄢ", "換": "ㄏㄨㄢˋ", "定": "ㄉㄧㄥˋ", "裡": "ㄌㄧˇ", "要": "ㄧㄠˋ", "矮": "ㄞˇ", "念": "ㄋㄧㄢˋ", "開": "ㄎㄞ", "年": "ㄋㄧㄢˊ", "拍": "ㄆㄞ", "九": "ㄐㄧㄡˇ", "第": "ㄉㄧˋ", "想": "ㄒㄧㄤˇ", "推": "ㄊㄨㄟ", "做": "ㄗㄨㄛˋ", "每": "ㄇㄟˇ", "目": "ㄇㄨˋ", "喜": "ㄒㄧˇ", "文": "ㄨㄣˊ", "鼠": "ㄕㄨˇ", "習": "ㄒㄧˊ", "棒": "ㄅㄤˋ", "奶": "ㄋㄞˇ", "怪": "ㄍㄨㄞˋ", "很": "ㄏㄣˇ", "本": "ㄅㄣˇ", "呢": "ㄋㄜ˙", "淡": "ㄉㄢˋ", "話": "ㄏㄨㄚˋ", "望": "ㄨㄤˋ", "首": "ㄕㄡˇ", "就": "ㄐㄧㄡˋ", "吃": "ㄔ", "請": "ㄑㄧㄥˇ", "戲": "ㄒㄧˋ", "面": "ㄇㄧㄢˋ", "二": "ㄦˋ", "數": "ㄕㄨˋ", "地": "ㄉㄧˋ", "聲": "ㄕㄥ", "老": "ㄌㄠˇ", "你": "ㄋㄧˇ", "學": "ㄒㄩㄝˊ", "適": "ㄕˋ", "點": "ㄉㄧㄢˇ", "它": "ㄊㄚ", "種": "ㄓㄨㄥˇ", "人": "ㄖㄣˊ", "練": "ㄌㄧㄢˋ", "物": "ㄨˋ", "答": "ㄉㄚˊ", "傘": "ㄙㄢˇ", "打": "ㄉㄚˇ", "找": "ㄓㄠˇ", "喔": "ㄛ", "限": "ㄒㄧㄢˋ", "鍵": "ㄐㄧㄢˋ", "停": "ㄊㄧㄥˊ", "課": "ㄎㄜˋ", "給": "ㄍㄟˇ", "樂": "ㄌㄜˋ", "說": "ㄕㄨㄛ", "繼": "ㄐㄧˋ", "成": "ㄔㄥˊ", "只": "ㄓˇ", "後": "ㄏㄡˋ", "句": "ㄐㄩˋ", "哥": "ㄍㄜ", "先": "ㄒㄧㄢ", "好": "ㄏㄠˇ", "合": "ㄏㄜˊ", "座": "ㄗㄨㄛˋ", "朵": "ㄉㄨㄛˇ", "健": "ㄐㄧㄢˋ", "級": "ㄐㄧˊ", "妹": "ㄇㄟˋ", "蓋": "ㄍㄞˋ", "能": "ㄋㄥˊ", "弟": "ㄉㄧˋ", "得": "ㄉㄜ˙", "以": "ㄧˇ", "用": "ㄩㄥˋ", "和": "ㄏㄢˋ", "到": "ㄉㄠˋ", "個": "ㄍㄜ˙", "放": "ㄈㄤˋ", "才": "ㄘㄞˊ", "遊": "ㄧㄡˊ", "看": "ㄎㄢˋ", "出": "ㄔㄨ", "按": "ㄢˋ", "造": "ㄗㄠˋ", "上": "ㄕㄤˋ", "輪": "ㄌㄨㄣˊ", "球": "ㄑㄧㄡˊ", "關": "ㄍㄨㄢ", "音": "ㄧㄣ", "機": "ㄐㄧ", "氣": "ㄑㄧˋ", "拿": "ㄋㄚˊ", "大": "ㄉㄚˋ", "在": "ㄗㄞˋ", "視": "ㄕˋ", "與": "ㄩˇ", "力": "ㄌㄧˋ", "庫": "ㄎㄨˋ", "快": "ㄎㄨㄞˋ", "題": "ㄊㄧˊ", "是": "ㄕˋ", "了": "ㄌㄜ˙", "續": "ㄒㄩˋ", "挑": "ㄊㄧㄠ", "通": "ㄊㄨㄥ", "詞": "ㄘˊ", "下": "ㄒㄧㄚˋ", "效": "ㄒㄧㄠˋ", "一": "ㄧˋ", "把": "ㄅㄚˇ", "品": "ㄆㄧㄣˇ", "固": "ㄍㄨˋ", "飯": "ㄈㄢˋ", "新": "ㄒㄧㄣ", "爸": "ㄅㄚˋ", "字": "ㄗˋ", "完": "ㄨㄢˊ", "全": "ㄑㄩㄢˊ", "選": "ㄒㄩㄢˇ", "注": "ㄓㄨˋ", "時": "ㄕˊ", "太": "ㄊㄞˋ", "運": "ㄩㄣˋ", "康": "ㄎㄤ", "去": "ㄑㄩˋ", "這": "ㄓㄜˋ", "立": "ㄌㄧˋ", "案": "ㄢˋ", "耳": "ㄦˇ", "家": "ㄐㄧㄚ", "食": "ㄕˊ", "們": "ㄇㄣ˙", "不": "ㄅㄨˋ", "進": "ㄐㄧㄣˋ", "次": "ㄘˋ", "中": "ㄓㄨㄥ", "再": "ㄗㄞˋ", "刀": "ㄉㄠ", "圖": "ㄊㄨˊ", "小": "ㄒㄧㄠˇ", "談": "ㄊㄢˊ", "星": "ㄒㄧㄥ", "覺": "ㄐㄧㄠˋ", "體": "ㄊㄧˇ", "間": "ㄐㄧㄢ", "子": "ㄗ˙", "寫": "ㄒㄧㄝˇ", "共": "ㄍㄨㄥˋ", "希": "ㄒㄧ", "現": "ㄒㄧㄢˋ", "會": "ㄏㄨㄟˋ", "發": "ㄈㄚ", "心": "ㄒㄧㄣ", "嗎": "ㄇㄚ˙", "書": "ㄕㄨ", "樓": "ㄌㄡˊ", "故": "ㄍㄨˋ", "坐": "ㄗㄨㄛˋ", "空": "ㄎㄨㄥ", "哪": "ㄋㄚˇ", "媽": "ㄇㄚ", "事": "ㄕˋ", "始": "ㄕˇ", "也": "ㄧㄝˇ", "明": "ㄇㄧㄥˊ", "師": "ㄕ", "門": "ㄇㄣˊ", "見": "ㄐㄧㄢˋ", "有": "ㄧㄡˇ"};
+const ZYC={"讓": "ㄖㄤˋ", "會": "ㄏㄨㄟˋ", "事": "ㄕˋ", "游": "ㄧㄡˊ", "弟": "ㄉㄧˋ", "放": "ㄈㄤˋ", "回": "ㄏㄨㄟˊ", "是": "ㄕˋ", "喔": "ㄛ", "馬": "ㄇㄚˇ", "得": "ㄉㄜ˙", "在": "ㄗㄞˋ", "字": "ㄗˋ", "著": "ㄓㄜ˙", "哪": "ㄋㄚˇ", "子": "ㄗ˙", "四": "ㄙˋ", "頁": "ㄧㄝˋ", "過": "ㄍㄨㄛˋ", "間": "ㄐㄧㄢ", "陽": "ㄧㄤˊ", "進": "ㄐㄧㄣˋ", "要": "ㄧㄠˋ", "部": "ㄅㄨˋ", "希": "ㄒㄧ", "再": "ㄗㄞˋ", "中": "ㄓㄨㄥ", "和": "ㄏㄢˋ", "出": "ㄔㄨ", "不": "ㄅㄨˋ", "友": "ㄧㄡˇ", "閉": "ㄅㄧˋ", "次": "ㄘˋ", "也": "ㄧㄝˇ", "張": "ㄓㄤ", "適": "ㄕˋ", "的": "ㄉㄜ˙", "拍": "ㄆㄞ", "空": "ㄎㄨㄥ", "戰": "ㄓㄢˋ", "歌": "ㄍㄜ", "打": "ㄉㄚˇ", "每": "ㄇㄟˇ", "點": "ㄉㄧㄢˇ", "給": "ㄍㄟˇ", "更": "ㄍㄥˋ", "師": "ㄕ", "故": "ㄍㄨˋ", "油": "ㄧㄡˊ", "怕": "ㄆㄚˋ", "傘": "ㄙㄢˇ", "開": "ㄎㄞ", "與": "ㄩˇ", "完": "ㄨㄢˊ", "看": "ㄎㄢˋ", "花": "ㄏㄨㄚ", "長": "ㄔㄤˊ", "注": "ㄓㄨˋ", "種": "ㄓㄨㄥˇ", "習": "ㄒㄧˊ", "下": "ㄒㄧㄚˋ", "先": "ㄒㄧㄢ", "就": "ㄐㄧㄡˋ", "覺": "ㄐㄧㄠˋ", "望": "ㄨㄤˋ", "讀": "ㄉㄨˊ", "老": "ㄌㄠˇ", "繼": "ㄐㄧˋ", "圖": "ㄊㄨˊ", "填": "ㄊㄧㄢˊ", "腳": "ㄐㄧㄠˇ", "青": "ㄑㄧㄥ", "運": "ㄩㄣˋ", "立": "ㄌㄧˋ", "清": "ㄑㄧㄥ", "共": "ㄍㄨㄥˋ", "請": "ㄑㄧㄥˇ", "你": "ㄋㄧˇ", "說": "ㄕㄨㄛ", "太": "ㄊㄞˋ", "跑": "ㄆㄠˇ", "樂": "ㄌㄜˋ", "氣": "ㄑㄧˋ", "體": "ㄊㄧˇ", "遊": "ㄧㄡˊ", "靜": "ㄐㄧㄥˋ", "限": "ㄒㄧㄢˋ", "天": "ㄊㄧㄢ", "現": "ㄒㄧㄢˋ", "小": "ㄒㄧㄠˇ", "練": "ㄌㄧㄢˋ", "同": "ㄊㄨㄥˊ", "唱": "ㄔㄤˋ", "輪": "ㄌㄨㄣˊ", "能": "ㄋㄥˊ", "案": "ㄢˋ", "一": "ㄧˋ", "門": "ㄇㄣˊ", "踏": "ㄊㄚˋ", "跳": "ㄊㄧㄠˋ", "庫": "ㄎㄨˋ", "位": "ㄨㄟˋ", "正": "ㄓㄥˋ", "玩": "ㄨㄢˊ", "吃": "ㄔ", "大": "ㄉㄚˋ", "了": "ㄌㄜ˙", "前": "ㄑㄧㄢˊ", "好": "ㄏㄠˇ", "書": "ㄕㄨ", "城": "ㄔㄥˊ", "鼠": "ㄕㄨˇ", "哥": "ㄍㄜ", "難": "ㄋㄢˊ", "怪": "ㄍㄨㄞˋ", "麼": "ㄇㄜ˙", "題": "ㄊㄧˊ", "力": "ㄌㄧˋ", "目": "ㄇㄨˋ", "朋": "ㄆㄥˊ", "這": "ㄓㄜˋ", "第": "ㄉㄧˋ", "答": "ㄉㄚˊ", "生": "ㄕㄥ", "矮": "ㄞˇ", "做": "ㄗㄨㄛˋ", "缺": "ㄑㄩㄝ", "最": "ㄗㄨㄟˋ", "到": "ㄉㄠˋ", "菜": "ㄘㄞˋ", "談": "ㄊㄢˊ", "快": "ㄎㄨㄞˋ", "數": "ㄕㄨˋ", "定": "ㄉㄧㄥˋ", "見": "ㄐㄧㄢˋ", "聲": "ㄕㄥ", "面": "ㄇㄧㄢˋ", "樣": "ㄧㄤˋ", "們": "ㄇㄣ˙", "機": "ㄐㄧ", "喜": "ㄒㄧˇ", "合": "ㄏㄜˊ", "動": "ㄉㄨㄥˋ", "拉": "ㄌㄚ", "嗎": "ㄇㄚ˙", "球": "ㄑㄧㄡˊ", "具": "ㄐㄩˋ", "自": "ㄗˋ", "按": "ㄢˋ", "香": "ㄒㄧㄤ", "品": "ㄆㄧㄣˇ", "分": "ㄈㄣ", "全": "ㄑㄩㄢˊ", "通": "ㄊㄨㄥ", "明": "ㄇㄧㄥˊ", "級": "ㄐㄧˊ", "語": "ㄩˇ", "飯": "ㄈㄢˋ", "對": "ㄉㄨㄟˋ", "詞": "ㄘˊ", "效": "ㄒㄧㄠˋ", "用": "ㄩㄥˋ", "歡": "ㄏㄨㄢ", "聽": "ㄊㄧㄥ", "星": "ㄒㄧㄥ", "成": "ㄔㄥˊ", "以": "ㄧˇ", "換": "ㄏㄨㄢˋ", "後": "ㄏㄡˋ", "車": "ㄔㄜ", "他": "ㄊㄚ", "還": "ㄏㄞˊ", "坐": "ㄗㄨㄛˋ", "裡": "ㄌㄧˇ", "起": "ㄑㄧˇ", "首": "ㄕㄡˇ", "音": "ㄧㄣ", "新": "ㄒㄧㄣ", "都": "ㄉㄡ", "為": "ㄨㄟˋ", "睡": "ㄕㄨㄟˋ", "高": "ㄍㄠ", "去": "ㄑㄩˋ", "呢": "ㄋㄜ˙", "上": "ㄕㄤˋ", "續": "ㄒㄩˋ", "人": "ㄖㄣˊ", "固": "ㄍㄨˋ", "造": "ㄗㄠˋ", "很": "ㄏㄣˇ", "關": "ㄍㄨㄢ", "課": "ㄎㄜˋ", "已": "ㄧˇ", "心": "ㄒㄧㄣ", "確": "ㄑㄩㄝˋ", "二": "ㄦˋ", "家": "ㄐㄧㄚ", "比": "ㄅㄧˇ", "年": "ㄋㄧㄢˊ", "九": "ㄐㄧㄡˇ", "學": "ㄒㄩㄝˊ", "閃": "ㄕㄢˇ", "念": "ㄋㄧㄢˋ", "拿": "ㄋㄚˊ", "淡": "ㄉㄢˋ", "來": "ㄌㄞˊ", "本": "ㄅㄣˇ", "怎": "ㄗㄣˇ", "寫": "ㄒㄧㄝˇ", "多": "ㄉㄨㄛ", "棒": "ㄅㄤˋ", "挑": "ㄊㄧㄠ", "話": "ㄏㄨㄚˋ", "視": "ㄕˋ", "只": "ㄓˇ", "時": "ㄕˊ", "選": "ㄒㄩㄢˇ", "停": "ㄊㄧㄥˊ", "地": "ㄉㄧˋ", "它": "ㄊㄚ", "我": "ㄨㄛˇ", "座": "ㄗㄨㄛˋ", "手": "ㄕㄡˇ", "把": "ㄅㄚˇ", "泳": "ㄩㄥˇ", "文": "ㄨㄣˊ", "戲": "ㄒㄧˋ", "想": "ㄒㄧㄤˇ", "什": "ㄕㄜˊ", "相": "ㄒㄧㄤ", "句": "ㄐㄩˋ", "發": "ㄈㄚ", "畫": "ㄏㄨㄚˋ", "個": "ㄍㄜ˙", "刀": "ㄉㄠ", "始": "ㄕˇ", "鍵": "ㄐㄧㄢˋ", "找": "ㄓㄠˇ", "有": "ㄧㄡˇ"};
 'use strict';
 const $=s=>document.querySelector(s);
 const rnd=n=>Math.floor(Math.random()*n);
@@ -197,7 +199,7 @@ const one=a=>a[rnd(a.length)];
 const KEY='paipai-lang2-l1-v1';
 let S={mode2:'all',pts:0,clr:0,prz:0};
 try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
-if(!['all','w','z','p','f'].includes(S.mode2))S.mode2='all';S.pts=0;S.clr=0;S.prz=0;
+if(!['all','w','z','p','f','r'].includes(S.mode2))S.mode2='all';S.pts=0;S.clr=0;S.prz=0;
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 function Z(t,force){return [...String(t)].map(c=>{const z=ZYC[c];if(!z||force===false)return c;const zz=z.replace('˙','')+(z.includes('˙')?'˙':'');return `<span class="zc">${c}<span class="zy">${zz}</span></span>`}).join('')}
 let voiceOn=true,AC=null;
@@ -233,14 +235,14 @@ function lay(el,n){const W=el.clientWidth,H=el.clientHeight;let bc=1,bs=0;for(le
 function prizeScreen(){clearAll();$('#homeBtn').style.display='';main.innerHTML=`<div class="home"><div class="logo">🎁 我的獎品</div><div class="tip">每拿到 ${PER} 點，就有一個新獎品！（${S.prz} / ${PR.length}）</div><div id="cg">${PR.map((p,i)=>i<S.prz?`<div class="cd">${p}</div>`:`<div class="cd" style="background:#eee;color:#bbb">？</div>`).join('')}</div></div>`;lay($('#cg'),PR.length);requestAnimationFrame(()=>lay($('#cg'),PR.length));setFoot([{h:'回首頁',c:'o',f:home}])}
 
 /* ===== 首頁／設定 ===== */
-const M2=[['all','全部混合'],['w','只練改錯字'],['z','只練選注音'],['f','只練詞語填空']];
+const M2=[['all','全部混合'],['w','只練改錯字'],['z','只練選注音'],['f','只練詞語填空'],['r','只練課文理解']];
 function settings(){clearAll();$('#homeBtn').style.display='';
-  main.innerHTML=`<div class="home"><div class="ctl"><div class="logo">⚙ 老師設定</div><div class="row" id="mr">${M2.map(m=>`<button class="opt ${S.mode2===m[0]?'on':''}" data-m="${m[0]}">${m[1]}</button>`).join('')}</div><div class="row stt"><span class="chip">🏆 點數 ${S.pts}</span><span class="chip">🎖 通關 ${S.clr} 次</span><span class="chip">🎁 ${S.prz}/${PR.length}</span></div><div class="tip">「改錯字」練形近字，「選注音」練聲調，「詞語填空」練造句。</div></div></div>`;
+  main.innerHTML=`<div class="home"><div class="ctl"><div class="logo">⚙ 老師設定</div><div class="row" id="mr">${M2.map(m=>`<button class="opt ${S.mode2===m[0]?'on':''}" data-m="${m[0]}">${m[1]}</button>`).join('')}</div><div class="row stt"><span class="chip">🏆 點數 ${S.pts}</span><span class="chip">🎖 通關 ${S.clr} 次</span><span class="chip">🎁 ${S.prz}/${PR.length}</span></div><div class="tip">「改錯字」練形近字，「選注音」練聲調，「詞語填空」練造句，「課文理解」練讀懂課文。</div></div></div>`;
   main.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{S.mode2=b.dataset.m;save();settings()});
   chipUpd();setFoot([{h:'回首頁',c:'o',f:home}])}
-const RULE='這裡有三種練習：改錯字、選注音、詞語填空。先聽清楚題目，再點一下你覺得對的答案，答對了就有星星和獎品喔！';
+const RULE='這裡有四種練習：改錯字、選注音、詞語填空、課文理解。先聽清楚題目，再點一下你覺得對的答案，答對了就有星星和獎品喔！';
 function home(){clearAll();$('#homeBtn').style.display='none';chipUpd();
-  main.innerHTML=`<div class="home2"><div class="logo">${Z('拍拍語文大挑戰',false)}<small class="l2">二年級 第一課</small></div><div class="demo"><div class="dl2" style="font-size:1.1rem">📖 改錯字　🔤 選注音　✏️ 詞語填空</div><div class="d1"><div class="dl">哥哥喜歡看</div><div class="dt" style="font-size:min(3.4rem,10vh,16vw)">固</div><div class="dl">事書。</div></div><div class="dar">找出怪怪的字，換成對的字</div><div class="d3">${Z('太棒了！')} 得到星星和獎品</div></div><div class="ruletxt">${RULE}</div><button class="opt" id="rsay">聽說明</button></div>`;
+  main.innerHTML=`<div class="home2"><div class="logo">${Z('拍拍語文大挑戰',false)}<small class="l2">二年級 第一課</small></div><div class="demo"><div class="dl2" style="font-size:1.1rem">📖 改錯字　🔤 選注音　✏️ 詞語填空　📖 課文理解</div><div class="d1"><div class="dl">哥哥喜歡看</div><div class="dt" style="font-size:min(3.4rem,10vh,16vw)">固</div><div class="dl">事書。</div></div><div class="dar">找出怪怪的字，換成對的字</div><div class="d3">${Z('太棒了！')} 得到星星和獎品</div></div><div class="ruletxt">${RULE}</div><button class="opt" id="rsay">聽說明</button></div>`;
   $('#rsay').onclick=()=>say(RULE);
   say(RULE);
   setFoot([{h:'開始玩',c:'o big',f:auto},{h:'我的獎品',c:'w',f:prizeScreen},{h:'設定',c:'w',f:settings}])}
@@ -263,15 +265,30 @@ function cover(){clearAll();$('#homeBtn').style.display='none';
 const EMO={故:'📖',坐:'🪑',以:'➡️',淡:'🥗',現:'⏰',力:'💪',希望:'🌟','用力':'💪',書本:'📚',老師:'🧑‍🏫',小矮人:'🧒',聲音:'🔊',故事:'📖',以後:'⏭️',清淡:'🥗',現在:'⏰',體力:'💪',還:'🔁'};
 
 const WRONG=[
- {s:'哥哥喜歡看固事書。',wi:5,correct:'故',wrong:'固',opts:['故','固','姑','估']},
- {s:'老師請我們座好，準備上課。',wi:5,correct:'坐',wrong:'座',opts:['坐','座','做','從']},
- {s:'我已後想當老師。',wi:1,correct:'以',wrong:'已',opts:['以','已','己','似']},
- {s:'奶奶喜歡吃清談的食物。',wi:6,correct:'淡',wrong:'談',opts:['淡','談','啖','炎']},
- {s:'限在是下課時間，大家很開心。',wi:0,correct:'現',wrong:'限',opts:['現','限','見','視']},
- {s:'多運動才會有體立。',wi:7,correct:'力',wrong:'立',opts:['力','立','刀','九']},
+ {s:'我要成為說固事高手！',wi:5,correct:'故',wrong:'固',opts:['故','固','姑','估']},
+ {s:'我座在新位子，拿起新課本。',wi:1,correct:'坐',wrong:'座',opts:['坐','座','做','從']},
+ {s:'已前不太喜歡說話的子陽。',wi:0,correct:'以',wrong:'已',opts:['以','已','己','似']},
+ {s:'我聞著談淡的書香。',wi:3,correct:'淡',wrong:'談',opts:['淡','談','啖','炎']},
+ {s:'小真限在好像比我還高了。',wi:2,correct:'現',wrong:'限',opts:['現','限','見','視']},
+ {s:'同學們都用立的為他拍手。',wi:5,correct:'力',wrong:'立',opts:['力','立','刀','九']},
+ {s:'我要看更多的好晝。',wi:7,correct:'書',wrong:'晝',opts:['書','晝','曲','里']},
+ {s:'本來比我矮的小直。',wi:7,correct:'真',wrong:'直',opts:['真','直','且','具']},
+ {s:'我真相快點上課！',wi:2,correct:'想',wrong:'相',opts:['想','相','木','目']},
+ {s:'子揚馬上大聲說。',wi:1,correct:'陽',wrong:'揚',opts:['陽','揚','楊','傷']},
+ {s:'還要決快長高。',wi:2,correct:'快',wrong:'決',opts:['快','決','缺','訣']},
+ {s:'怎麼淨靜的看書呢？',wi:2,correct:'靜',wrong:'淨',opts:['靜','淨','靖','睜']},
+ {s:'弟弟想看便多的故事書。',wi:4,correct:'更',wrong:'便',opts:['更','便','硬','梗']},
+ {s:'老師和同學都為他怕手。',wi:8,correct:'拍',wrong:'怕',opts:['拍','怕','迫','泊']},
+ {s:'樂樂喜歡抱跑跳跳。',wi:4,correct:'跑',wrong:'抱',opts:['跑','抱','袍','泡']},
+ {s:'老師門大家新希望。',wi:2,correct:'問',wrong:'門',opts:['問','門','間','悶']},
+ {s:'我要城為說故事高手！',wi:2,correct:'成',wrong:'城',opts:['成','城','誠','盛']},
+ {s:'樂樂舉毛回答問題。',wi:3,correct:'手',wrong:'毛',opts:['手','毛','午','壬']},
+ {s:'老師請大家回到自己的泣子。',wi:10,correct:'位',wrong:'泣',opts:['位','泣','立','拉']},
+ {s:'閉學這一天，我看到同學。',wi:0,correct:'開',wrong:'閉',opts:['開','閉','間','閃']},
+ {s:'我看到同學，必裡好歡喜。',wi:6,correct:'心',wrong:'必',opts:['心','必','忘','忍']},
 ];
 
-const ZYW=['希望','用力','書本','老師','坐','小矮人','聲音','故事','以後','清淡','現在','體力'];
+const ZYW=['希望','用力','書本','老師','坐','小矮人','聲音','故事','以後','清淡','現在','體力','開學','歡喜','同學','課本','書香','更好','長高','大聲','快','馬','心'];
 const ZYCH=[...new Set(ZYW.join('').split(''))];
 const CONFZY={ㄣ:'ㄥ',ㄥ:'ㄣ',ㄢ:'ㄤ',ㄤ:'ㄢ',ㄗ:'ㄓ',ㄓ:'ㄗ',ㄘ:'ㄔ',ㄔ:'ㄘ',ㄙ:'ㄕ',ㄕ:'ㄙ',ㄈ:'ㄏ',ㄏ:'ㄈ',ㄋ:'ㄌ',ㄌ:'ㄋ',ㄒ:'ㄒ'};
 const TONES=['','ˊ','ˇ','ˋ','˙'];
@@ -291,17 +308,29 @@ const POLY=[
 
 const FBANK=['希望','學年','以前','用力','大聲'];
 const FILL=[
- {pre:'我在新的',post:'，許下一個希望。',correct:'學年'},
- {pre:'妹妹',post:'推開了門。',correct:'用力'},
- {pre:'',post:'這裡是一片稻田，現在蓋了大樓。',correct:'以前'},
- {pre:'弟弟耳朵不好，說話要',post:'一點。',correct:'大聲'},
- {pre:'我',post:'爸爸媽媽永遠健康快樂。',correct:'希望'},
+ {pre:'新的',post:'是新的開始，我也有新的希望。',correct:'學年'},
+ {pre:'同學們都',post:'的為他拍手。',correct:'用力'},
+ {pre:'',post:'不太喜歡說話的子陽，馬上大聲說：「我要成為說故事高手！」',correct:'以前'},
+ {pre:'子陽馬上',post:'說：「我要成為說故事高手！」',correct:'大聲'},
+ {pre:'我也有新的',post:'：我要看更多的好書，還要快快長高。',correct:'希望'},
+];
+
+const READ=[
+ {ctx:'開學這一天，我看到同學，心裡好歡喜。',q:'開學這一天，我心裡覺得怎麼樣？',correct:'好歡喜',opts:['好歡喜','很難過','很緊張','很生氣']},
+ {ctx:'坐在新位子，拿起新課本，聞著淡淡的書香，我真想快點上課！',q:'我坐在新位子，拿起新課本，聞到什麼？',correct:'淡淡的書香',opts:['淡淡的書香','花的香味','飯的香味','油墨的味道']},
+ {ctx:'我也有新的希望：我要看更多的好書，還要快快長高。',q:'我的新希望是什麼？',correct:'看更多的好書，還要快快長高',opts:['看更多的好書，還要快快長高','多吃青菜，多運動','交更多的朋友','學會騎腳踏車']},
+ {ctx:'老師問：「新的學年，有什麼新希望？」子陽馬上大聲說：「我要成為說故事高手！」',q:'老師問大家有什麼新希望，子陽怎麼回答？',correct:'我要成為說故事高手',opts:['我要成為說故事高手','我要考一百分','我要交新朋友','我要學游泳']},
+ {ctx:'以前不太喜歡說話的子陽，馬上大聲說：「我要成為說故事高手！」',q:'子陽以前是怎麼樣的人？',correct:'不太喜歡說話',opts:['不太喜歡說話','很愛說話','很愛唱歌','很愛畫畫']},
+ {ctx:'同學聽了，都用力的為他拍手。',q:'同學們聽到子陽的新希望，做了什麼？',correct:'都用力的為他拍手',opts:['都用力的為他拍手','都笑他','都不理他','都一起說故事']},
+ {ctx:'跑跑跳跳的樂樂，怎麼坐在位子上靜靜的看書呢？',q:'樂樂平常喜歡做什麼，現在卻在做什麼？',correct:'平常跑跑跳跳，現在卻靜靜的看書',opts:['平常跑跑跳跳，現在卻靜靜的看書','平常看書，現在跑跑跳跳','平常唱歌，現在畫畫','平常睡覺，現在寫字']},
+ {ctx:'本來比我矮的小真，現在好像比我還高了。',q:'小真本來是什麼樣子？現在呢？',correct:'本來比我矮，現在比我還高了',opts:['本來比我矮，現在比我還高了','本來比我高，現在比我矮了','本來很瘦，現在很胖','本來很矮，現在還是一樣矮']},
 ];
 
 function buildPool(){let out=[];
   if(S.mode2==='all'||S.mode2==='w')out=out.concat(WRONG.map(x=>({t:'w',...x})));
   if(S.mode2==='all'||S.mode2==='z'){out=out.concat(ZYCH.map(c=>({t:'z',word:c,opts:zyOptsFor(c)})));out=out.concat(POLY.map(x=>({t:'p',...x})));}
   if(S.mode2==='all'||S.mode2==='f')out=out.concat(FILL.map(x=>({t:'f',...x,opts:shuffle(FBANK)})));
+  if(S.mode2==='all'||S.mode2==='r')out=out.concat(READ.map(x=>({t:'r',...x})));
   return shuffle(out)}
 
 let Q=null,POOL=[],QI=0,EARN=0;
@@ -311,7 +340,7 @@ function nextQ(){QI++;if(QI>=POOL.length)roundDone();else renderQ()}
 function qBanner(title,sub){return `<div id="ban"><div class="qn">第 ${QI+1} / ${POOL.length} 題</div><div class="bh">${title}</div>${sub?`<div class="bs">${sub}</div>`:''}</div>`}
 
 function renderQ(){clearAll();Q=POOL[QI];
-  if(Q.t==='w')renderWrong();else if(Q.t==='z')renderZ();else if(Q.t==='p')renderP();else renderF();
+  if(Q.t==='w')renderWrong();else if(Q.t==='z')renderZ();else if(Q.t==='p')renderP();else if(Q.t==='r')renderR();else renderF();
   setFoot([{h:'再聽一次',c:'w',f:()=>Q._say&&Q._say()},{h:'暫停',c:'g',f:doPause}]);
 }
 
@@ -349,6 +378,13 @@ function renderF(){main.innerHTML=`<div id="play">${qBanner('✏️ 詞語填空
   const say1=()=>say(`${Q.pre}○○${Q.post}`);Q._say=say1;later(say1,300);
   showOpts(Q.opts,Q.correct,(ok,el)=>{
     if(ok)finishQ(`${Q.pre}${Q.correct}${Q.post}`);else{el.classList.add('bad3');setTimeout(()=>el.classList.remove('bad3'),400);say('再想想看')}
+  })}
+
+/* ---- 課文理解 ---- */
+function renderR(){main.innerHTML=`<div id="play">${qBanner('📖 課文理解','讀一讀課文，選出正確答案')}<div id="fld" class="lang"><div class="sen para">${Q.ctx}</div><div class="qtxt">${Q.q}</div><div id="optbox"></div><div id="msg"></div></div></div>`;
+  const say1=()=>say(`${Q.ctx}${Q.q}`);Q._say=say1;later(say1,300);
+  showOpts(shuffle(Q.opts),Q.correct,(ok,el)=>{
+    if(ok)finishQ(`答案是：${Q.correct}`);else{el.classList.add('bad3');setTimeout(()=>el.classList.remove('bad3'),400);say('再想想看')}
   })}
 
 function showOpts(opts,correct,cb){const box=document.createElement('div');box.className='zyt';box.id='optbox2';
